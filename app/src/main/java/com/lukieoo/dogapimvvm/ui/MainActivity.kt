@@ -5,29 +5,32 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.lukieoo.dogapimvvm.databinding.ActivityMainBinding
 import com.lukieoo.dogapimvvm.repository.MainRepository
 import com.squareup.picasso.Picasso
-import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import java.util.concurrent.Executors
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val dogViewModel: DogViewModel by viewModels()
+    private lateinit var dogViewModel: DogViewModel
 
     @Inject
-    lateinit var mainRepository: MainRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        dogViewModel = ViewModelProvider(this, viewModelFactory).get(DogViewModel::class.java)
 
         fetchData()
         eventButton()

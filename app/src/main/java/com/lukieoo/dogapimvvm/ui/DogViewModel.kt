@@ -1,6 +1,5 @@
 package com.lukieoo.dogapimvvm.ui
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +8,9 @@ import com.lukieoo.dogapimvvm.repository.MainRepository
 import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
-class DogViewModel @ViewModelInject constructor(var mainRepository: MainRepository) : ViewModel() {
+class DogViewModel @Inject constructor(var mainRepository: MainRepository) : ViewModel() {
 
 
     private val productDetails = MutableLiveData<ImageDog>()

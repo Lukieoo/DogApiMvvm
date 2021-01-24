@@ -1,7 +1,22 @@
 package com.lukieoo.dogapimvvm
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.lukieoo.dogapimvvm.di.DaggerAppComponent
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-@HiltAndroidApp
-class MyApplication : Application()
+class MyApplication : Application(), HasAndroidInjector {
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun onCreate() {
+        super.onCreate()
+
+        DaggerAppComponent.builder().application(this).build().inject(this)
+    }
+
+    override fun androidInjector() = androidInjector
+
+}

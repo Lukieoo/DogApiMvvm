@@ -5,14 +5,12 @@ import com.lukieoo.dogapimvvm.dao.DogDao
 import com.lukieoo.dogapimvvm.repository.MainRepository
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
+    @JvmStatic
     @Singleton
     @Provides
     fun provideMainRepository(
